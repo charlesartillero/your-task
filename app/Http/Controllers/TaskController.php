@@ -3,18 +3,22 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Filters\TaskFilter;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
+
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(TaskFilter $filters)
     {
-        return TaskResource::collection(Task::paginate());
+        $filters = Task::filter($filters)->get();
+
+        return TaskResource::collection($filters);
     }
 
     /**
