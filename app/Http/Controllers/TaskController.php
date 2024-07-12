@@ -16,9 +16,7 @@ class TaskController extends Controller
      */
     public function index(TaskFilter $filters)
     {
-        $filters = Task::filter($filters)->get();
-
-        return TaskResource::collection($filters);
+        return TaskResource::collection(Task::filter($filters)->paginate(5));
     }
 
     /**
