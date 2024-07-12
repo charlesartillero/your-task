@@ -20,4 +20,9 @@ class TaskFilter extends QueryFilter
         return $this->builder->where('completed', '=', $value);
     }
 
+    public function duration($value)
+    {
+        return $this->builder->where('duration', '=', $value);
+    }
+
 }
