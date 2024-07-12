@@ -19,7 +19,7 @@ class TaskFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'body' => $this->faker->paragraph(),
+            'body' => $this->faker->words(3, true),
         ];
     }
 }
