@@ -2,9 +2,11 @@
 
 namespace App\Http\Filters\Specifications;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Task;
+use Illuminate\Database\Eloquent\Builder;
+
 
 interface SpecificationInterface
 {
-    public function isSatisfiedBy(Model $model): bool;
+    public function apply(Builder $query): Builder;
 }

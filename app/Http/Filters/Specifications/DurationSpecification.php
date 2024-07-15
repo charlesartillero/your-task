@@ -2,17 +2,16 @@
 
 namespace App\Http\Filters\Specifications;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Task;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class DurationSpecification implements SpecificationInterface
 {
     function __construct(protected $min, protected $max){}
 
-    public function isSatisfiedBy(Model $model): bool
+    public function apply(Builder $query):  Builder
     {
-        if ($model->duration >= $this->min && $model->duration <= $this->max) {
-            return true;
-        }
-        return false;
+        return $query->whereBetween('duration', [$this->min, $this->max]);
     }
 }

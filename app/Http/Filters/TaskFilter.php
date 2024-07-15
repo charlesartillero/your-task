@@ -2,6 +2,9 @@
 
 namespace App\Http\Filters;
 
+use App\Http\Filters\Specifications\BodySpecification;
+use App\Http\Filters\Specifications\DurationSpecification;
+
 class TaskFilter extends QueryFilter
 {
     protected $sortable = [
@@ -13,7 +16,8 @@ class TaskFilter extends QueryFilter
     ];
     public function body($value)
     {
-        return $this->builder->where('body', 'like', "%". $value. "%");
+        $bodySpec = new BodySpecification($value);
+        return $bodySpec->apply($this->builder);
     }
     public function completed($value)
     {
@@ -22,7 +26,8 @@ class TaskFilter extends QueryFilter
 
     public function duration($value)
     {
-        return $this->builder->where('duration', '=', $value);
+        $durationSpec = new DurationSpecification(50, 60);
+        return $durationSpec->apply($this->builder);
     }
 
 }
